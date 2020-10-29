@@ -3,12 +3,18 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - hierarchy',
-    title: 'hierarchy',
+    titleTemplate: '%s - SSR Test',
+    title: 'SSR Test',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: 'SSR + Amplify テスト' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'SSR + Amplify テスト' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:url', property: 'og:url', content: process.env.BASE_URL || 'http://localhost:3000' },
+      { hid: 'og:title', property: 'og:title', content: 'SSR + Amplify テスト' },
+      { hid: 'og:description', property: 'og:description', content: 'SSR + Amplify テスト' },
+      { hid: 'og:image', property: 'og:image', content: (process.env.BASE_URL || 'http://localhost:3000') + '/icon.png' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -69,9 +75,30 @@ export default {
     }
   },
 
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
+
+  pwa: {
+    manifest: {
+      name: 'SSR + Amplify Test',
+      short_name: 'SSR Amplify'
+    }
+  },
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    extend(config: any, ctx: any) {}
+    extend(config: any, ctx: any) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: "pre",
+          test: /\.(js|vue)$/,
+          loader: "eslint-loader",
+          exclude: /(node_modules)/
+        })
+      }
+    }
   },
 
   typescript: {
