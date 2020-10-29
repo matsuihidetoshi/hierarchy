@@ -71,5 +71,11 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    extend(config: any, ctx: any) {}
+  },
+
+  typescript: {
+    typeCheck: true,
+    ignoreNotFoundWarnings: true
   }
 }
