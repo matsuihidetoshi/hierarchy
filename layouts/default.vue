@@ -89,7 +89,9 @@
 </template>
 
 <script>
-export default {
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component({
   data () {
     return {
       clipped: false,
@@ -113,5 +115,7 @@ export default {
       title: 'Vuetify.js'
     }
   }
-}
+})
+
+export default class Dfault extends Vue { }
 </script>
